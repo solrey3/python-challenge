@@ -56,6 +56,15 @@ with open(csvpath) as csvfile:
 	print("Average: $" + "{0:.2f}".format(average))
 	print("Greatest Increase in Profits: " + greatest_increase_month + " (${0:.2f})".format(greatest_increase))
 	print("Greatest Decrease in Profits: " + greatest_decrease_month + " (${0:.2f})".format(greatest_decrease))
+
+	with open("output.txt", "w") as text_file:
+		print("Financial Analysis", file=text_file)
+		print("-----------------------------------------------------", file=text_file)
+		print(f"Total Months: {month_count}", file=text_file)
+		print("Total: $" + "{0:.2f}".format(net_total), file=text_file)
+		print("Average: $" + "{0:.2f}".format(average), file=text_file)
+		print("Greatest Increase in Profits: " + greatest_increase_month + " (${0:.2f})".format(greatest_increase), file=text_file)
+		print("Greatest Decrease in Profits: " + greatest_decrease_month + " (${0:.2f})".format(greatest_decrease), file=text_file)
 	
 
 
