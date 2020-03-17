@@ -13,6 +13,9 @@ greatest_increase = 0
 greatest_increase_month = ""
 greatest_decrease = 0
 greatest_decrease_month = ""
+change_total = 0
+change_total_sum = 0
+previous_total = 0
 
 with open(csvpath) as csvfile:
 
@@ -29,25 +32,32 @@ with open(csvpath) as csvfile:
 		#print(row)
 
 		#print(month_count)
+		if month_count != 0:
+			change_total = float(row[1]) - previous_total
+		else:
+			change_total = 0
+
+		previous_total = float(row[1])
 
 		# The total number of months included in the dataset
 		month_count = month_count + 1
 
 		# The net total amount of "Profit/Losses" over the entire period
 		net_total = net_total + float(row[1])
+		change_total_sum = change_total_sum + change_total 
 
 		# The greatest increase in profits (date and amount) over the entire period
-		if float(row[1]) > greatest_increase:
-			greatest_increase = float(row[1])
+		if change_total > greatest_increase:
+			greatest_increase = change_total
 			greatest_increase_month = row[0]
 
 		# The greatest decrease in losses (date and amount) over the entire period
-		if float(row[1]) < greatest_decrease:
-			greatest_decrease = float(row[1])
+		if change_total < greatest_decrease:
+			greatest_decrease = change_total
 			greatest_decrease_month = row[0]
 
 	# The average of the changes in "Profit/Losses" over the entire period
-	average = net_total / month_count
+	average = change_total_sum / (month_count - 1)
 
 	print("Financial Analysis")
 	print("-----------------------------------------------------")
